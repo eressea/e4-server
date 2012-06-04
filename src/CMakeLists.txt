@@ -21,4 +21,5 @@ add_executable(server main.c)
 target_link_libraries(server
   ${ERESSEA_LIBRARY}
   ${TOLUA_LIBRARIES}
+  ${SQLITE3_LIBRARIES}
 )
