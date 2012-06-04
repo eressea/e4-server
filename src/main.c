@@ -30,12 +30,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <locale.h>
 #include <wctype.h>
 
-#include <tests.h>
-
 static const char *luafile = "setup.lua";
 static const char *entry_point = NULL;
 static const char *inifile = "eressea.ini";
-static const char *logfile="eressea.log";
+static const char *logfile= "eressea.log";
 static int memdebug = 0;
 
 static void parse_config(const char *filename)
@@ -64,14 +62,13 @@ static int usage(const char *prog, const char *arg)
     "-q               : be quite (same as -v 0)\n"
     "-v <level>       : verbosity level\n"
     "-C               : run in interactive mode\n"
-    "--color          : force curses to use colors even when not detected\n"
-    "--tests          : run test suite\n" "--help           : help\n", prog);
+    "--color          : force curses to use colors even when not detected\n", prog);
   return -1;
 }
 
 static int parse_args(int argc, char **argv, int *exitcode)
 {
-  int i, run_tests = 0;
+  int i;
 
   for (i = 1; i != argc; ++i) {
     if (argv[i][0] != '-') {
@@ -87,8 +84,6 @@ static int parse_args(int argc, char **argv, int *exitcode)
         force_color = 1;
       } else if (strcmp(argv[i] + 2, "help") == 0) {
         return usage(argv[0], NULL);
-      } else if (strcmp(argv[i] + 2, "tests") == 0) {
-        run_tests = 1;
       } else {
         return usage(argv[0], argv[i]);
       }
@@ -139,10 +134,6 @@ static int parse_args(int argc, char **argv, int *exitcode)
   default:
     log_stderr = LOG_CPERROR|LOG_CPWARNING|LOG_CPDEBUG|LOG_CPINFO;
     break;
-  }
-  if (run_tests) {
-    *exitcode = RunAllTests();
-    return 1;
   }
 
   return 0;

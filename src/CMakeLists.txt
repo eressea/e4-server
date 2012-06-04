@@ -3,7 +3,7 @@ project (server C)
 
 find_package (Lua51 REQUIRED)
 find_package (LibXml2 REQUIRED)
-find_package (Sqlite3 REQUIRED)
+find_package (SQLite3 REQUIRED)
 find_package (ToLua REQUIRED)
 find_package (Curses REQUIRED)
 
