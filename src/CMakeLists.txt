@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.4)
-project (server)
+project (server C)
 
 find_package (Lua51 REQUIRED)
 find_package (LibXml2 REQUIRED)

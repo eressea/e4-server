@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.4)
-project (e4-server)
+project (e4-server C)
 
 enable_testing()
 
