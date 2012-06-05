@@ -22,3 +22,6 @@
 [submodule "crypto"]
 	path = crypto
 	url = git@github.com:eressea/crypto.git
+[submodule "lunit"]
+	path = lunit
+	url = git@github.com:eressea/lunit.git
