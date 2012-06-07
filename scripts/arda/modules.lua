@@ -6,5 +6,7 @@ tests = {
 --  srcpath .. '/eressea/scripts/tests/bson.lua',
   srcpath .. '/eressea/scripts/tests/spells.lua', 
   srcpath .. '/eressea/scripts/tests/common.lua', 
+  srcpath .. '/eressea/scripts/tests/orders.lua', 
   srcpath .. '/scripts/tests/rules.lua', 
+  srcpath .. '/scripts/tests/bindings.lua', 
 }

@@ -24,13 +24,16 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <gmtool.h>
 #include <kernel/config.h>
 #include <kernel/save.h>
+#include <bindings/bindings.h>
 #include <iniparser.h>
+
+#include <lua.h>
 
 #include <assert.h>
 #include <locale.h>
 #include <wctype.h>
 
-static const char *luafile = "setup.lua";
+static const char *luafile = 0;
 static const char *entry_point = NULL;
 static const char *inifile = "eressea.ini";
 static const char *logfile= "eressea.log";
@@ -41,6 +44,7 @@ static void parse_config(const char *filename)
   dictionary *d = iniparser_new(filename);
   if (d) {
     load_inifile(d);
+    log_debug("reading from configuration file %s\n", filename);
 
     memdebug = iniparser_getint(d, "eressea:memcheck", memdebug);
     entry_point = iniparser_getstring(d, "eressea:run", entry_point);
@@ -48,6 +52,8 @@ static void parse_config(const char *filename)
 
     /* only one value in the [editor] section */
     force_color = iniparser_getint(d, "editor:color", force_color);
+  } else {
+    log_error("could not open configuration file %s\n", filename);
   }
   global.inifile = d;
 }
@@ -149,7 +155,9 @@ void locale_init(void)
 int main(int argc, char **argv)
 {
   int err, result = 0;
+  lua_State * L;
 
+  log_open(logfile);
   parse_config(inifile);
 
   err = parse_args(argc, argv, &result);
@@ -157,22 +165,19 @@ int main(int argc, char **argv)
     return result;
   }
 
-  log_open(logfile);
   locale_init();
 
-  err = eressea_init();
-  if (err) {
-    log_error("initialization failed with code %d\n", err);
-    return err;
-  }
+  L = lua_init();
+  game_init();
 
-  err = eressea_run(luafile, entry_point);
+  err = eressea_run(L, luafile, entry_point);
   if (err) {
     log_error("server execution failed with code %d\n", err);
     return err;
   }
 
-  eressea_done();
+  game_done();
+  lua_done(L);
   log_close();
   return 0;
 }
