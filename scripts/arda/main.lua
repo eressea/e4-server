@@ -16,7 +16,7 @@ function process(orders)
   mark_multis(suspected_multis, false)
 
   -- run the turn:
-  if read_orders(orders) ~= 0 then
+  if eressea.read_orders(orders) ~= 0 then
     print("could not read " .. orders)
     return -1
   end
@@ -42,7 +42,7 @@ function process(orders)
   write_files(config.locales)
 
   file = "" .. get_turn() .. ".dat"
-  if write_game(file, "binary")~=0 then
+  if eressea.write_game(file)~=0 then
     print("could not write game")
     return -1
   end
