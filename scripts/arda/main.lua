@@ -64,12 +64,7 @@ function process_orders_new()
     eressea.process.study()
     eressea.process.produce()
 --[[
-
-  p += 10;
   add_proc_region(p, &enter_2, "Kontaktieren & Betreten (3. Versuch)");
-
-  p += 10;
-  add_proc_region(p, &sinkships, "Schiffe sinken");
 ]]
     eressea.process.movement()
 --[[
@@ -78,7 +73,6 @@ function process_orders_new()
     add_proc_region(p, &auto_work, "Arbeiten (auto)");
   }
 
-  p += 10;
   add_proc_order(p, K_GUARD, &guard_on_cmd, 0, "Bewache (an)");
 #if XECMD_MODULE
   /* can do together with guard */
@@ -103,18 +97,10 @@ function process_orders_new()
   }
   add_proc_global(p, &demographics, "Nahrung, Seuchen, Wachstum, Wanderung");
 
-  if (!global.disabled[K_SORT]) {
-    p += 10;
-    add_proc_global(p, &reorder, "Einheiten sortieren");
-  }
-  add_proc_order(p, K_PROMOTION, &promotion_cmd, 0, "Heldenbefoerderung");
-  if (!global.disabled[K_NUMBER]) {
-    add_proc_order(p, K_NUMBER, &renumber_cmd, 0, "Neue Nummern (Einheiten)");
-    p += 10;
-    add_proc_global(p, &renumber_factions, "Neue Nummern");
-  }
-}
 ]]
+    eressea.process.restack()
+    eressea.process.promotion()
+    eressea.process.renumber()
 end
 
 function process(orders)
