@@ -12,3 +12,6 @@ Release/
 src/*.vcproj.*.user
 tags
 build*/
+game/reports/
+game/data/
+game/eressea.log*
