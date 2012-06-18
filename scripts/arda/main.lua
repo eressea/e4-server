@@ -13,13 +13,12 @@ function process_orders_new()
     eressea.process.set_status()
     eressea.process.set_spells()
     eressea.process.set_name()
+    eressea.process.guard_off()
 --[[
-  add_proc_order(p, K_GUARD, &guard_off_cmd, 0, NULL);
   add_proc_order(p, K_RESHOW, &reshow_cmd, 0, NULL);
 
   add_proc_global(p, &alliance_cmd, NULL);
 
-  add_proc_global(p, &age_factions, "Parteienalter++");
   add_proc_order(p, K_MAIL, &mail_cmd, 0, "Botschaften");
 ]]
     eressea.process.contact()
@@ -50,8 +49,9 @@ function process_orders_new()
     p += 10;
     add_proc_region(p, &auto_work, "Arbeiten (auto)");
   }
-
-  add_proc_order(p, K_GUARD, &guard_on_cmd, 0, "Bewache (an)");
+]]
+    eressea.process.guard_on()
+--[[
 #if XECMD_MODULE
   /* can do together with guard */
   add_proc_order(p, K_XE, &xecmd, 0, "Zeitung");
@@ -65,16 +65,13 @@ function process_orders_new()
 
   p += 10;
   add_proc_global(p, &randomevents, "Zufallsereignisse");
-
-  p += 10;
-
-  add_proc_global(p, &monthly_healing, "Regeneration (HP)");
-  add_proc_global(p, &regeneration_magiepunkte, "Regeneration (Aura)");
+]]
+    eressea.process.regeneration()
+--[[
   if (!global.disabled[K_DEFAULT]) {
     add_proc_global(p, &defaultorders, "Defaults setzen");
   }
   add_proc_global(p, &demographics, "Nahrung, Seuchen, Wachstum, Wanderung");
-
 ]]
     eressea.process.restack()
     eressea.process.promotion()
