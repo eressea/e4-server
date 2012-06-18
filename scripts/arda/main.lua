@@ -5,19 +5,13 @@ function process_orders_new()
     eressea.process.update_long_order()
     eressea.process.settings()
     eressea.process.set_group()
---[[
-  add_proc_unit(p, &reset_moved, "Instant-Befehle");
-]]
+
     eressea.process.origin()
---[[
-  add_proc_order(p, K_ALLY, &ally_cmd, 0, NULL);
-]]
+    eressea.process.set_help()
     eressea.process.set_prefix()
     eressea.process.set_stealth()
     eressea.process.set_status()
---[[
-  add_proc_order(p, K_COMBATSPELL, &combatspell_cmd, 0, NULL);
-]]
+    eressea.process.set_spells()
     eressea.process.set_name()
 --[[
   add_proc_order(p, K_GUARD, &guard_off_cmd, 0, NULL);
@@ -27,22 +21,16 @@ function process_orders_new()
 
   add_proc_global(p, &age_factions, "Parteienalter++");
   add_proc_order(p, K_MAIL, &mail_cmd, 0, "Botschaften");
-
-  add_proc_region(p, &enter_1, "Kontaktieren & Betreten (1. Versuch)");
 ]]
+    eressea.process.contact()
+    eressea.process.enter(false)
     eressea.process.use()
---[[
-  add_proc_global(p, &gmcommands, "GM Kommandos");
-
-  add_proc_order(p, K_GIVE, &give_control_cmd, 0, "GIB KOMMANDO");
-]]
+    eressea.process.give_control()
     eressea.process.leave()
---[[
-  add_proc_region(p, &do_battle, "Attackieren");
-]]
+    eressea.process.battle()
     eressea.process.siege()
+    eressea.process.enter(false)
 --[[
-  add_proc_region(p, &enter_1, "Kontaktieren & Betreten (2. Versuch)");
   add_proc_order(p, K_RESERVE, &reserve_cmd, 0, "Reservieren");
   add_proc_order(p, K_CLAIM, &claim_cmd, 0, NULL);
   add_proc_unit(p, &follow_unit, "Folge auf Einheiten setzen");
@@ -52,20 +40,10 @@ function process_orders_new()
 ]]
     eressea.process.maintenance()
     eressea.process.quit()
---[[
-  add_proc_global(p, remove_idle_players, "remove idle players");
-
-  if (!global.disabled[K_CAST]) {
-    p += 10;
-    add_proc_global(p, &magic, "Zaubern");
-  }
-
-]]
+    eressea.process.magic()
     eressea.process.study()
     eressea.process.produce()
---[[
-  add_proc_region(p, &enter_2, "Kontaktieren & Betreten (3. Versuch)");
-]]
+    eressea.process.enter(true)
     eressea.process.movement()
 --[[
   if (get_param_int(global.parameters, "work.auto", 0)) {
