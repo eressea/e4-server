@@ -23,7 +23,7 @@ include_directories (${LUA_INCLUDE_DIR})
 include_directories (${LIBXML2_INCLUDE_DIR})
 include_directories (${INIPARSER_INCLUDE_DIR})
 
-add_executable(server main.c)
+add_executable(server main.c e4combat.c)
 target_link_libraries(server
   ${ERESSEA_LIBRARY}
   ${BINDINGS_LIBRARY}
