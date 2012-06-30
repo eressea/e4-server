@@ -13,6 +13,8 @@
 
 #include <util/parser.h>
 
+#include <assert.h>
+
 static void resolve_combat(battle * b)
 {
 }
@@ -30,6 +32,7 @@ static bool add_enemies(battle * b, const alliance * al)
         side * s = get_side(b, u);
         if (!s) s = make_side(b, u->faction, 0, 0, 0);
         fi = make_fighter(b, u, s, false);
+        assert(fi);
       }
       found = true;
     }
@@ -62,6 +65,7 @@ static void add_combatants(battle * b, region * r)
             s = get_side(b, u);
             if (!s) s = make_side(b, u->faction, 0, 0, 0);
             fi = make_fighter(b, u, s, true);
+            assert(fi);
           }
         }
       }
