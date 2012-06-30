@@ -4,6 +4,7 @@
 #include <kernel/config.h>
 
 #include <kernel/alliance.h>
+#include <kernel/ally.h>
 #include <kernel/battle.h>
 #include <kernel/faction.h>
 #include <kernel/order.h>
