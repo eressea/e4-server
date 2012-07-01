@@ -8,7 +8,7 @@ ELSE(CMAKE_COMPILER_IS_GNUCC)
     MESSAGE(STATUS "Unknown compiler ${CMAKE_C_COMPILER_ID}")
 ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
-find_package (Lua51 REQUIRED)
+find_package (Lua52 REQUIRED)
 find_package (LibXml2 REQUIRED)
 find_package (SQLite3 REQUIRED)
 find_package (ToLua REQUIRED)
