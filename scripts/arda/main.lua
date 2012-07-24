@@ -14,13 +14,11 @@ function process_orders_new()
     eressea.process.set_spells()
     eressea.process.set_name()
     eressea.process.guard_off()
---[[
-  add_proc_order(p, K_RESHOW, &reshow_cmd, 0, NULL);
-
-  add_proc_global(p, &alliance_cmd, NULL);
-
-  add_proc_order(p, K_MAIL, &mail_cmd, 0, "Botschaften");
-]]
+    eressea.process.explain()
+    if eressea.settings.get('rules.alliances')=='1' then
+        eressea.process.alliance()
+    end
+    eressea.process.messages()
     eressea.process.contact()
     eressea.process.enter(false)
     eressea.process.use()
@@ -29,11 +27,11 @@ function process_orders_new()
     eressea.process.battle()
     eressea.process.siege()
     eressea.process.enter(false)
+    eressea.process.reserve()
+    eressea.process.claim()
+    eressea.process.follow()
+    
 --[[
-  add_proc_order(p, K_RESERVE, &reserve_cmd, 0, "Reservieren");
-  add_proc_order(p, K_CLAIM, &claim_cmd, 0, NULL);
-  add_proc_unit(p, &follow_unit, "Folge auf Einheiten setzen");
-
   add_proc_region(p, &economics, "Zerstoeren, Geben, Rekrutieren, Vergessen");
 
 ]]
@@ -44,19 +42,11 @@ function process_orders_new()
     eressea.process.produce()
     eressea.process.enter(true)
     eressea.process.movement()
---[[
-  if (get_param_int(global.parameters, "work.auto", 0)) {
-    p += 10;
-    add_proc_region(p, &auto_work, "Arbeiten (auto)");
-  }
-]]
+    if eressea.settings.get('work.auto')=='1' then
+        eressea.process.idle()
+    end
     eressea.process.guard_on()
 --[[
-#if XECMD_MODULE
-  /* can do together with guard */
-  add_proc_order(p, K_XE, &xecmd, 0, "Zeitung");
-#endif
-
   p += 10;
   add_proc_global(p, &encounters, "Zufallsbegegnungen");
   p += 10;
@@ -67,10 +57,8 @@ function process_orders_new()
   add_proc_global(p, &randomevents, "Zufallsereignisse");
 ]]
     eressea.process.regeneration()
+	eressea.process.set_default()
 --[[
-  if (!global.disabled[K_DEFAULT]) {
-    add_proc_global(p, &defaultorders, "Defaults setzen");
-  }
   add_proc_global(p, &demographics, "Nahrung, Seuchen, Wachstum, Wanderung");
 ]]
     eressea.process.restack()
