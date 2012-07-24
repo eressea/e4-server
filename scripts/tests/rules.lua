@@ -74,7 +74,7 @@ function test_landing_harbour_unpaid()
   u1:add_order("NACH w")
   process_orders()
   
-  assert_equal(ocean.id, u1.region.id) -- did not pay 
+  assert_equal(ocean, u1.region) -- did not pay 
 end
 
 function test_landing_terrain()
@@ -95,7 +95,7 @@ function test_landing_terrain()
   u1:add_order("NACH w")
   process_orders()
   
-  assert_equal(ocean.id, u1.region.id) -- cannot land in glacier without harbour
+  assert_equal(ocean, u1.region) -- cannot land in glacier without harbour
 end
 
 function test_landing_insects()
@@ -119,5 +119,5 @@ function test_landing_insects()
   u1:add_order("NACH w")
   process_orders()
   
-  assert_equal(ocean.id, u1.region.id) -- insects cannot land in glaciers
+  assert_equal(ocean, u1.region) -- insects cannot land in glaciers
 end
